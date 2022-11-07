@@ -15,11 +15,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().ignoringAntMatchers("/saveMsg").ignoringAntMatchers("/h2-console/**")
+        http.csrf().ignoringAntMatchers("/saveMsg").ignoringAntMatchers("/public/**")
+                .ignoringAntMatchers("/api/**")
                 .and().authorizeRequests()
                 .mvcMatchers("/dashboard").authenticated()
                 .mvcMatchers("/displayProfile").authenticated()
                 .mvcMatchers("/updateProfile").authenticated()
+                .mvcMatchers("/api/**").authenticated()
                 .mvcMatchers("/displayMessages").hasRole("ADMIN")
                 .mvcMatchers("/home").permitAll()
                 .mvcMatchers("/holidays/**").permitAll()
